@@ -24,7 +24,6 @@ const addcoin = async (req, res) => {
             amount: amountToAdd,
             type: 'add',
             status: 'pending',
-            // Add user details to the money request
             name: user.name,
             email: user.email,
             password: user.password

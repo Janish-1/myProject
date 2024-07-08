@@ -8,6 +8,7 @@ const path = require("path");
 const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
 const fs = require("fs");
+const cors = require("cors"); // Import CORS middleware
 
 // Specify the absolute path to your .env file
 const envPath = path.resolve(__dirname, "../.env");
@@ -37,6 +38,8 @@ const accessLogStream = fs.createWriteStream(
 app.use(morgan("combined", { stream: accessLogStream }));
 
 app.use(bodyParser.json());
+
+app.use(cors());
 
 // Connect to MongoDB
 connectDB(); // Call the function to establish MongoDB connection
@@ -74,9 +77,17 @@ app.post("/resetpassword",Routes);
 
 // Token System
 app.post("/newtemptoken",Routes);
+app.post("/newpermtoken",Routes);
 
 // Image System
 app.post("/imageupload", Routes);
+
+// Task System
+app.post('/createtask',Routes);
+app.get('/getalltask', Routes);
+app.get('/gettaskbyid/:id', Routes);
+app.put('/updatetaskbyid/:id', Routes);
+app.delete('/deletetaskbyid/:id', Routes);
 
 // Start the server
 app.listen(PORT, () => {

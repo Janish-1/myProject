@@ -8,7 +8,8 @@ const { addcoin, removecoin, approvetransaction, declinetransaction, getMoneyReq
 const imageRoutes = require('../controllers/ImageSystem/image');
 const { updateUsername,updatepassword,logout } = require('../controllers/PlayerProfile/playerupdate');
 const { generateresettoken,sendtokentoemail,changepassword } = require('../controllers/PlayerProfile/resetpassword');
-const { newtemptoken } = require('../controllers/tokengenerators/token');
+const { newtemptoken, newpermtoken } = require('../controllers/tokengenerators/token');
+const { createTask, getAllTasks, getTaskById, updateTask, deleteTask } = require('../controllers/TasksSystem/tasks');
 
 // Login and Register Endpoints
 router.post('/register',register);
@@ -44,5 +45,13 @@ router.post('/logout',logout);
 
 //Token Regenerators
 router.post('/newtemptoken',newtemptoken);
+router.post('/newpermtoken',newpermtoken);
+
+// Tasks Endpoints
+router.post('/createtask',createTask);
+router.get('/getalltask', getAllTasks);
+router.get('/gettaskbyid/:id', getTaskById);
+router.put('/updatetaskbyid/:id', updateTask);
+router.delete('/deletetaskbyid/:id', deleteTask);
 
 module.exports = router;
